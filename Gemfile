@@ -37,5 +37,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+# Easy upload management for ActiveRecord
+gem 'paperclip', '~> 4.3', '>= 4.3.6'
+
+# Use postgresql as the database for Active Record
+gem 'pg', '~> 0.18'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

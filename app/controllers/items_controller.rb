@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :update, :destroy]
+  before_action :set_item, only: %i[show update destroy]
 
   # GET /items
   # GET /items.json
@@ -18,9 +18,10 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
+      @item.save_attachments(item_params) if params[:item][:document_data]
       render :show, status: :created, location: @item
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: @item.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -41,13 +42,14 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(:name, :description, :image_base, document_data: [])
+  end
 end
