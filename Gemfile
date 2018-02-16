@@ -38,7 +38,7 @@ group :development do
 end
 
 # Easy upload management for ActiveRecord
-gem 'paperclip', '~> 4.3', '>= 4.3.6'
+gem 'paperclip', '~> 5.2.0' # >= 5.2.0 e < 5.3
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
