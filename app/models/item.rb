@@ -3,7 +3,11 @@ class Item < ApplicationRecord
   attr_accessor :image_base
 
   before_validation :parse_image
-  has_attached_file :picture, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/medium/missing.png'
+  has_attached_file :picture,
+                    styles: { medium: '300x300>', thumb: '100x100>' },
+                    default_url: '/images/medium/missing.png',
+                    url: "/system/:hash.:extension",
+                    hash_secret: "longSecretString"
   validates_attachment :picture,
                        presence: true,
                        content_type: { content_type: %w[image/jpeg image/png] },
